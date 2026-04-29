@@ -5,6 +5,7 @@ import { connect } from 'mongoose';
 import connectDb from './config/db.js';
 import 'dotenv/config';
 import userRoutes from './routes/userRoutes.js';
+import sellerRoutes from './routes/sellerRoutes.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -19,11 +20,8 @@ const allowedOrigins = ['http://localhost:3000', 'https://greencart-frontend.ver
 // allow multiple origins for CORS
 app.use(cors({origin: allowedOrigins, credentials: true})); 
 
-app.use('/api/users', userRoutes);
-
-
-
-
+app.use('/api/user', userRouter);
+app.use('/api/seller',sellerRouter);
 
 app.get ('/', (req,res)=>{
     res.send("API is running...");

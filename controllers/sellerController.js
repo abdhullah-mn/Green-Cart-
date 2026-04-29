@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 
 
-//seller login: /api/seller/login
+//seller login: /api/seller/sellerLogin
 
 export const sellerLogin = async(req,res)=>{
     try{

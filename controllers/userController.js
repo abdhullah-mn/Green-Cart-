@@ -82,7 +82,7 @@ catch (error) {
    }
 }
 
-// /api/user/is-Auth
+// /api/seller/is-Auth
 export const isAuth = async(req,res)=>{
     try{
 
@@ -98,9 +98,9 @@ export const isAuth = async(req,res)=>{
     }
 }
 
-//logout user /api/user/logout
+//logout user /api/user/sellerLogout
 
-export const logout = async (req,res)=>{
+export const userlogout = async (req,res)=>{
     try{
 
     //clear the cookie that stires the jwt
