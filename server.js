@@ -6,11 +6,13 @@ import connectDb from './config/db.js';
 import 'dotenv/config';
 import userRoutes from './routes/userRoutes.js';
 import sellerRoutes from './routes/sellerRoutes.js';
+import connectCloudinary from './config/cloudinary.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 await connectDb();
+await connectCloudinary();
 
 app.use(express.json());
 app.use(cookieParser());
