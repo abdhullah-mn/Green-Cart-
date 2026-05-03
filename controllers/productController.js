@@ -1,4 +1,4 @@
-
+import cloudinary from "../config/cloudinary.js";                            
 
 
 
@@ -6,8 +6,8 @@
 export const addProduct = async(req,res)=>{
     try{
         let productData = JSON.parse(req.body.productData);
-        const image = req.file;
-        let imagesUrl = await promise.all(
+        const image = req.files;
+        let imagesUrl = await Promise.all(
             image.map(async(item)=>{
 
                 let result = await cloudinary.uploader.upload(item.path, {resourse_type: "image"});
@@ -42,14 +42,34 @@ export const addProduct = async(req,res)=>{
 // Get product : /api/product/list 
 export const productList = async (req,res)=>{
 
+    try{
+        const products = await Product.find({}); // Fetch all products from the database
+        res.json({ success: true, products }); // Send the products as a JSON response  
 
 
+    }catch(error){
+        console.log(error);
+        res.json({ success: false, message: "Failed to fetch products" });
 
-
+    }
 }
 
 // Get single product : /api/product/id
 export const productById = async (req,res)=>{
+    try{
+        const {id} = req.body;
+        const product = await Product.findById(id);// Fetch the product with the specified ID from the database
+        if(product){
+            res.json({ success: true, product }); // Send the product as a JSON response
+        }else{
+            res.json({ success: false, message: "Product not found" });
+        }   
+
+    }catch(error){
+        console.log(error);
+        res.json({ success: false, message: "Failed to fetch product" });
+
+    }
 
 
 }
