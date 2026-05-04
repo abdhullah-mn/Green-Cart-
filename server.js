@@ -8,6 +8,7 @@ import userRoutes from './routes/userRoutes.js';
 import sellerRoutes from './routes/sellerRoutes.js';
 import connectCloudinary from './config/cloudinary.js';
 import productRouter from './routes/productRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -26,6 +27,7 @@ app.use(cors({origin: allowedOrigins, credentials: true}));
 app.use('/api/user', userRouter);
 app.use('/api/seller',sellerRouter);
 app.use('/api/product', productRouter);
+app.use('/api/cart', cartRouter);
 
 app.get ('/', (req,res)=>{
     res.send("API is running...");
