@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
     amount: {type: Number, required: true},
     address: {type: String, required: true, ref: 'Address'},
     status: {type: String, default: 'Order Placed'},
-    paymentType: {type: string, required: true},
+    paymentType: {type: String, required: true},
     isPaid: {type: Boolean, default: false},
 },{timestamps: true});  // Add timestamps to automatically manage createdAt and updatedAt fields
 
