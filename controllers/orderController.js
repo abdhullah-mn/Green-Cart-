@@ -1,6 +1,7 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/product.js";
 import Address from "../models/Address.js";
+import { use } from "react";
 
 //place order COD : /api/order/cod
 export const placeOrderCOD = async (req,res)=>{
@@ -20,4 +21,27 @@ catch(error){
     console.error("Error placing order:", error);
     res.status(500).json({message: "Internal Server Error"});
 }
+}
+
+//get oders by userid : /api/order/getOrders
+export const getUserOrders = async (req,res)=>{
+    try{
+
+        const {userId} = req.body;
+        const orders = await Order.find({
+            user_id: userId,
+            $or: [
+                {paymentType: 'COD'},
+                {isPaid: true},
+            ] // This condition ensures that we fetch orders that are either COD or have been paid for, providing a comprehensive view of the user's order history
+        }).populate('items.product') // Populate the product details in the items array
+        .populate('address'); // Populate the address details in the order
+        res.json({success:true, orders}); // Send the fetched orders as a JSON response
+
+    }catch(error){
+        console.error("Error fetching user orders:", error);
+        res.status(500).json({message: "Internal Server Error"});
+    }
 };
+
+
