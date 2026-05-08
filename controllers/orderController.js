@@ -23,7 +23,7 @@ catch(error){
 }
 }
 
-//get oders by userid : /api/order/getOrders
+//get oders by userid : /api/order/user 
 export const getUserOrders = async (req,res)=>{
     try{
 
@@ -44,4 +44,13 @@ export const getUserOrders = async (req,res)=>{
     }
 };
 
-
+//Get all orders for admin : /api/order/seller 
+export const getAllOrders = async (req,res)=>{
+    try{
+        const orders = await Order.find().populate('items.product').populate('address');
+        res.json({success:true, orders});
+    }catch(error){
+        console.error("Error fetching all orders:", error);
+        res.status(500).json({message: "Internal Server Error"});
+    }       
+}
